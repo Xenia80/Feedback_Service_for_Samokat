@@ -41,16 +41,16 @@
 
 ## Артефакты
 В рамках проекта была составлена следующая документация:
-1. [Техническое задание](https://github.com/Xenia80/Feedback_Service_for_Samokat/blob/main/%D0%A2%D0%97_v1.docx)
-2. [Use Case диаграмма](https://github.com/Xenia80/Feedback_Service_for_Samokat/blob/main/%D0%90%D1%80%D1%85%D0%B8%D1%82%D0%B5%D0%BA%D1%82%D1%83%D1%80%D0%B0_v1.drawio)
-3. [Архитектура в нотации С4](https://github.com/Xenia80/Feedback_Service_for_Samokat/blob/main/%D0%90%D1%80%D1%85%D0%B8%D1%82%D0%B5%D0%BA%D1%82%D1%83%D1%80%D0%B0_v1.drawio)
-4. [ER-диаграмма](https://github.com/Xenia80/Feedback_Service_for_Samokat/blob/main/%D0%90%D1%80%D1%85%D0%B8%D1%82%D0%B5%D0%BA%D1%82%D1%83%D1%80%D0%B0_v1.drawio)
-5. [Sequence диаграмма (код в PlantUML)](https://github.com/Xenia80/Feedback_Service_for_Samokat/blob/main/%D0%90%D1%80%D1%85%D0%B8%D1%82%D0%B5%D0%BA%D1%82%D1%83%D1%80%D0%B0_v1.drawio)
-6. [API спецификация в Openapi](https://github.com/Xenia80/Feedback_Service_for_Samokat/blob/main/%D0%90%D1%80%D1%85%D0%B8%D1%82%D0%B5%D0%BA%D1%82%D1%83%D1%80%D0%B0_v1.drawio)
+1. [Техническое задание](https://github.com/Xenia80/Feedback_Service_for_Samokat/blob/main/%D0%A2%D0%97_v1.pdf)
+2. [Use Case диаграмма](https://github.com/Xenia80/Feedback_Service_for_Samokat/blob/main/UC_%D0%B4%D0%B8%D0%B0%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B0%20%D1%81%D0%B0%D0%BC%D0%BE%D0%BA%D0%B0%D1%82_v3.png)
+3. [Архитектура в нотации С4](https://github.com/Xenia80/Feedback_Service_for_Samokat/blob/main/%D0%90%D1%80%D1%85%D0%B8%D1%82%D0%B5%D0%BA%D1%82%D1%83%D1%80%D0%B0_v1.png)
+4. [ER-диаграмма](https://github.com/Xenia80/Feedback_Service_for_Samokat/blob/main/ERD_v4.png)
+5. [Sequence диаграмма (код в PlantUML)](https://github.com/Xenia80/Feedback_Service_for_Samokat/blob/main/PlantUML%20%D0%BA%D0%BE%D0%B4.pdf)
+6. [Openapi спецификация](https://github.com/Xenia80/Feedback_Service_for_Samokat/blob/main/openapi%20(v2).yaml)
 
 Артефакты по результатам работы, полученные от Заказчика:
-1. [Благодарственное письмо](https://github.com/Xenia80/Feedback_Service_for_Samokat/blob/main/%D0%90%D1%80%D1%85%D0%B8%D1%82%D0%B5%D0%BA%D1%82%D1%83%D1%80%D0%B0_v1.drawio)
-2. [Рекомендательное письмо](https://github.com/Xenia80/Feedback_Service_for_Samokat/blob/main/%D0%90%D1%80%D1%85%D0%B8%D1%82%D0%B5%D0%BA%D1%82%D1%83%D1%80%D0%B0_v1.drawio)
+1. [Благодарственное письмо](https://github.com/Xenia80/Feedback_Service_for_Samokat/blob/main/%D0%91%D0%BB%D0%B0%D0%B3%D0%BE%D0%B4%D0%B0%D1%80%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%BD%D0%BE%D0%B5%20%D0%BF%D0%B8%D1%81%D1%8C%D0%BC%D0%BE_%D0%AF%D0%9C.pdf)
+2. [Рекомендательное письмо](https://github.com/Xenia80/Feedback_Service_for_Samokat/blob/main/%D0%A0%D0%B5%D0%BA%D0%BE%D0%BC%D0%B5%D0%BD%D0%B4%D0%B0%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D0%BE%D0%B5%20%D0%BF%D0%B8%D1%81%D1%8C%D0%BC%D0%BE_%D0%AF%D0%9C.pdf)
 
 ## Вывод
 По результатам проекта сформировано техническое решение, которое позволит добавить новый сервис управления отзывами в мобильное приложение "Самокат", что позволит повысить продажи товаров, а также поспособствует повышению лояльности клиентов.
