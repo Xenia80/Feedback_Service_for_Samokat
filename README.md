@@ -41,7 +41,7 @@
 
 ## Артефакты
 В рамках проекта была составлена следующая документация:
-1. [Техническое задание] (https://github.com/Xenia80/Feedback_Service_for_Samokat/blob/main/%D0%A2%D0%97_v1.docx)
+1. [Техническое задание](https://github.com/Xenia80/Feedback_Service_for_Samokat/blob/main/%D0%A2%D0%97_v1.docx)
 2.
 3.
 4.
