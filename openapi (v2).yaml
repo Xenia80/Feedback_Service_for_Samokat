@@ -1,0 +1,528 @@
+openapi: 3.0.3
+info:
+  version: "1.0.0"
+  title: Сервис отзывов
+servers:
+  - url: localhost
+
+paths: 
+  /products/{productId}/feedback:  
+    get:
+      tags: [Посмотреть отзывы и рейтинг товара]
+      summary:  Просмотреть все отзывы для товара
+      description:  Получение списка отзывов по id товара 
+      operationId: product_retrieve
+      parameters:
+        - name: productId
+          in: path
+          description: Идентификатор продукта
+          required: true
+          schema:
+            type: string
+            format: uuid
+          example: a0478120-4e59-11ef-ae7a-08c0eb320147
+        - name: sort
+          in: query
+          description: Параметр сортировки. По умолчанию - сортировка по дате 
+          required: false
+          schema:
+            type: string
+            example:
+        - name: page
+          in: query
+          description: Параметр пагинации
+          required: false
+          schema:
+            type: number
+            example: 1
+        - name: size
+          in: query
+          description: Параметр пагинации
+          required: false
+          schema:
+            type: number
+            example: 5
+      responses:
+        '200':
+          description: Запрос пользователя успешно обработан.
+          content:
+            application/json:
+              schema:
+               $ref: '#/components/schemas/ProductFeedback'
+        '404':
+          description: Запрашиваемый ресурс не найден. 
+        '500':
+          description: Сервис недоступен.
+  /products/{productId}:
+    get:
+      tags: [Посмотреть отзывы и рейтинг товара]
+      summary: Рейтинг и кол-во отзывов 
+      description: Возвращает рейтинг и кол-во отзывов для указанного товара.
+      operationId: product_rating
+      parameters:
+        - name: productId
+          in: path
+          description: Уникальный идентификатор товара.
+          required: true
+          schema:
+            type: string
+            format: uuid
+        
+      responses:
+        '200':
+          description: Запрос пользователя успешно обработан.
+          content:
+            application/json:
+              schema:
+               $ref: '#/components/schemas/ProductRating'
+        '404':
+          description:  Запрашиваемый ресурс не найден 
+        '500':
+          description: Сервис недоступен.
+  /feedbacks:
+    post:
+      tags: [Отзывы]
+      summary: Добавляет новый отзыв
+      description: Добавляет новый отзыв
+      operationId: user_create
+      requestBody:  
+        content:
+          application/json:
+            schema:
+             $ref: '#/components/schemas/Feedbacks'
+      responses:
+        '201':
+          description: Отзыв успешно создан и отправлен на модерацию
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PostFeedback'
+        '401':
+          description: Пользователь не авторизован в системе.
+        '403':
+          description: Нет прав на удаление отзыва.
+        '404':
+          description: Запрашиваемый ресурс не найден. 
+        '500':
+          description: Сервис недоступен.
+  /orders/products/{productId}:
+    get:
+      tags: [Проверки]
+      summary: Проверка, покупал ли пользователь данный товар
+      description: Проверяет, покупал ли пользователь данный товар и может ли оставить отзыв на товар.
+      operationId: orders_productId
+      parameters:
+        - name: productId
+          in: path
+          description: Уникальный идентификатор товара.
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: a0478120-4e59-11ef-ae7a-08c0eb320147
+        - name: userId
+          in: query
+          description: Идентификатор пользователя
+          required: true
+          schema:
+            type: number
+            format: int10
+            example: 4564534578
+      responses:
+        '200':
+          description: Запрос пользователя успешно обработан.
+          content:
+            application/json:
+              schema:
+               $ref: '#/components/schemas/CanCreate'
+        '404':
+          description: Запрашиваемый ресурс не найден. 
+        '500':
+          description: Сервис недоступен. 
+  /feedbacks/{feedbackId}:
+     put:
+      tags: [Отзывы]
+      summary:  Обновляет отзыв
+      description: Обновляет отзыв
+      parameters:
+        - name: feedbackId
+          in: path
+          description: Уникальный идентификатор отзыва
+          required: true
+          schema:
+            type: number
+            format: int10
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Feedbacks'
+      responses:
+        '200':
+          description: Отзыв успешно обновлен и отправлен на модерацию
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PostFeedback'
+        '401':
+          description: Пользователь не авторизован в системе.
+        '403':
+          description: Нет прав на удаление отзыва.
+        '404':
+          description: Запрашиваемый ресурс не найден. 
+        '500':
+          description: Сервис недоступен.
+     delete:
+      tags: [Отзывы]
+      summary: Удаляет отзыв с указанным id
+      operationId: delete_feedbackId
+      parameters:
+        - name: feedbackId
+          in: path
+          description: Уникальный идентификатор отзыва
+          required: true
+          schema:
+            type: number
+            format: int10
+      responses:
+        '200':
+          description: Запрос клиента успешно обработан.
+          content:
+            application/json:
+              schema:
+               $ref: '#/components/schemas/DeleteFeedbackId'
+        '401':
+          description: Пользователь не авторизован в системе.
+        '403':
+          description: Нет прав на удаление отзыва.
+        '404':
+          description: Запрашиваемый ресурс не найден. 
+        '500':
+          description: Сервис недоступен.
+  /feedbacks/webhook/moderation:
+    post:
+      tags: [Webhooks]
+      summary: Отправка отзыва на модерацию
+      description: Отправляет отзыв на модерацию
+      operationId: moderation
+      requestBody:  
+        content:
+          application/json:
+            schema:
+             $ref: '#/components/schemas/Webhooks'
+      responses:
+        '201':
+          description: Отзыв отправлен на модерацию
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PostWebhooks'
+        '500':
+          description: Сервис недоступен.
+  /feedbacks/webhook/moderation-status:
+    patch:
+      tags: [Webhooks]
+      summary: Возврат результатов модерации 
+      description: Возвращает результаты модерации
+      operationId: moderation_status
+      requestBody:  
+        content:
+          application/json:
+            schema:
+             $ref: '#/components/schemas/WebhooksStatus'
+      responses:
+        '201':
+          description: Отзыв отправлен на модерацию
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PatchWebhooks'
+        '500':
+          description: Сервис недоступен.
+components:
+  schemas:
+   ProductFeedback:
+      type:  object
+      required: 
+      - productId
+      - averageRating
+      - feedbackId
+      - userId
+      - userName
+      - grade
+      - createdAt
+      - updatedAt
+      properties:
+        productId:
+          type: string
+          format: uuid
+          description: Идентификатор продукта
+          example: a0478120-4e59-11ef-ae7a-08c0eb320147
+        averageRating:
+          type: number
+          description: Рейтинг продукта
+          example:  4.2
+        totalFeedbacks:
+          type: number
+          description: Общее количество отзывов по продукту
+          example:  150
+        feedbackId:
+          type: number
+          description: Идентификатор отзыва
+          example:  1134567890
+        userId:
+          type: number
+          description: Идентификатор пользователя
+          example:  4564534578
+        userName:
+            type: string
+            description: Имя пользователя
+            example:  Иван
+        grade:
+          type: number
+          description: Оценка в отзыве
+          enum:
+            - 1
+            - 2
+            - 3
+            - 4
+            - 5
+          example:   5
+        text:
+            type: string
+            description: Комментарий в отзыве
+            example:  Отличный товар
+        mediaType:
+            type: string
+            description:  Ссылка на медиафайл 
+            enum:
+              - video
+              - image
+            example:  image
+        mediaUrl:
+            type: string
+            description: Рейтинг продукта
+            example:  https://imgproxy.kuper.ru/imgproxy/size-210-210/czM6Ly9jb250ZW50LWltYWdlcy1wcm9kL2NhdGVnb3JpZXMvOTAwMDAwL29yaWdpbmFsLzIwMjMtMDMtMTVUMDklM0E0OCUzQTM3Ljg3MjE5MyUyQjAwJTNBMDAvOTAwMDAwLnBuZw==.png
+        createdAt:
+          type: string
+          format: date
+          example:  2024-12-01T10:00:00Z
+        updatedAt: 
+          type: string
+          format: date
+          example:  2024-12-01T10:00:00Z
+   ProductRating:
+      type:  object
+      required: 
+      - productId
+      - name
+      - averageRating
+      - price
+      properties:
+        productId:
+          type: string
+          format: uuid
+          description: Идентификатор продукта
+          example: a0478120-4e59-11ef-ae7a-08c0eb320147
+        name:
+            type: string
+            description: Наименование продукта
+            example:  Творог Самокат, 6%, мягкий, высокобелковый, 120 г
+        description:
+            type: string
+            description: Описание продукта
+            example:  Натуральный творог с повышенным содержанием белка. Приготовлен из молока с добавлением закваски. Благодаря методу ультрафильтрации имеет нежную кремовую текстуру. Можно есть просто так, а можно добавить ягоды, фрукты, варенье или джем
+        averageRating:
+          type: number
+          description: Рейтинг продукта
+          example:  4.2
+        totalFeedbacks:
+          type: number
+          description: Общее количество отзывов по продукту
+          example:  150
+        price:
+          type: number
+          description: Цена за единицу продукта
+          example: 223.6
+        keywords:
+            type: string
+            description:  Ключевые слова для продуктов, используются для расширения поискового запро
+            example:  Нежная кремовая текстура, 11 г белка в упаковке, На завтрак, ужин и для перекуса
+   DeleteFeedbackId:
+      type:  object
+      required: 
+      - isDeleted
+      - description
+      properties:
+        isDeleted:
+          type: boolean
+          description: Признак удаления
+          example:  true
+        description:
+            type: string
+            description: Описание для пользователя
+            example:  Отзыв успешно удален
+   Feedbacks: 
+      type: object
+      required:
+      - productId
+      - grade
+      properties:
+         productId:
+          type: string
+          format: uuid
+          example:  f2ba4533-48a8-11ed-885a-08c0ed32014b
+         grade:
+          type:  number
+          enum: 
+            - 1
+            - 2 
+            - 3 
+            - 4
+            - 5
+          example:  5
+         text:
+          type: string
+          example:  Товар хороший, но есть недостатки
+         mediaType:
+            type: string
+            description:  Ссылка на медиафайл 
+            enum:
+              - video
+              - image
+            example:  image
+         mediaUrl:
+            type: string
+            description: Рейтинг продукта
+            example:  https://imgproxy.kuper.ru/imgproxy/size-210-210/czM6Ly9jb250ZW50LWltYWdlcy1wcm9kL2NhdGVnb3JpZXMvOTAwMDAwL29yaWdpbmFsLzIwMjMtMDMtMTVUMDklM0E0OCUzQTM3Ljg3MjE5MyUyQjAwJTNBMDAvOTAwMDAwLnBuZw==.png
+         extension:
+          type: string
+          description: Расширение 
+          enum: 
+            - jpeg
+            - png
+            - mp4
+            - MOV
+          example: jpeg
+         size:
+          type: number
+          format: int15
+          example: 10000
+   Webhooks: 
+      type: object
+      required:
+      - feedbackId
+      - grade
+      properties:
+         feedbackId:
+          type: number
+          description: Идентификатор отзыва
+          example:  1134567890
+         grade:
+          type:  number
+          enum: 
+            - 1
+            - 2 
+            - 3 
+            - 4
+            - 5
+          example:  5
+         text:
+          type: string
+          example:  Товар хороший, но есть недостатки
+         mediaType:
+            type: string
+            description:  Ссылка на медиафайл 
+            enum:
+              - video
+              - image
+            example:  image
+         mediaUrl:
+            type: string
+            description: Рейтинг продукта
+            example:  https://imgproxy.kuper.ru/imgproxy/size-210-210/czM6Ly9jb250ZW50LWltYWdlcy1wcm9kL2NhdGVnb3JpZXMvOTAwMDAwL29yaWdpbmFsLzIwMjMtMDMtMTVUMDklM0E0OCUzQTM3Ljg3MjE5MyUyQjAwJTNBMDAvOTAwMDAwLnBuZw==.png
+         extension:
+          type: string
+          description: Расширение 
+          enum: 
+            - jpeg
+            - png
+            - mp4
+            - MOV
+          example: jpeg
+         size:
+          type: number
+          format: int15
+          example: 10000
+   WebhooksStatus: 
+      type: object
+      required:
+      - feedbackId
+      - status
+      - description
+      properties:
+         feedbackId:
+          type: number
+          description: Идентификатор отзыва
+          example:  1134567890
+         status:
+          type:  string
+          enum: 
+            - NEW
+            - UPDATE
+            - REVIEW
+            - PUBLISHED
+            - BANNED
+          description: Статус модерации
+          example:  PUBLISHED
+         description:
+          type: string
+          description: Описание для пользователя
+          example:  Отзыв успешно прошел модерацию и был опубликован
+   PostFeedback:
+      type: object
+      required:
+      - feedbackId
+      - description
+      properties:
+        feedbackId:
+          type: number
+          description: Идентификатор отзыва
+          example:  1134567890
+        description:
+            type: string
+            description: Описание для пользователя
+            example:  Отзыв успешно создан и отправлен на модерацию
+   CanCreate:
+      type: object
+      required:
+      - canCreate
+      properties:
+        canCreate:
+          type: boolean
+          description: Признак, что пользователь покупал товар и может создать отзыв
+          example: true
+   PostWebhooks:
+      type: object
+      required:
+      - feedbackId
+      - description
+      properties:
+        feedbackId:
+          type: number
+          description: Идентификатор отзыва
+          example:  1134567890
+        description:
+            type: string
+            description: Описание состояния
+            example:  На модерации
+   PatchWebhooks:
+      type: object
+      required:
+      - description
+      properties:
+        description:
+            type: string
+            description: Описание состояния
+            example:  Результаты модерации получены
